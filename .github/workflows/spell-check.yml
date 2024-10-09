@@ -22,4 +22,4 @@ jobs:
           files: "*.tex"
           check_dot_files: false
           strict: true # all errors must be responded
-          incremental_files_only: true # check only changed files
+          incremental_files_only: false # check only changed files
