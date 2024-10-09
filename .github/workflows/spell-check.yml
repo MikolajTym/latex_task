@@ -1,0 +1,25 @@
+name: Check spelling
+on:
+  pull_request: # run jobs on each pull request to check if pull request works
+  push: # run jobs if push on main branch
+    branches: # many branches, that's why we must type -
+      - main
+jobs:
+  spellcheck: # our name
+    runs-on: ubuntu-latest
+    steps: # many steps, that's why we must type -
+      - name: Set up Git repository.
+        uses: actions/checkout@v3 # choose checkout actions in version 3
+      - name: Install dictionaries. # CSpell
+        run: |
+          npm install @cspell/dict-pl_pl
+          npm install @cspell/dict-latex
+          npm install @cspell/dict-software-terms
+          npm install @cspell/dict-golang
+      - name: Run cspell.
+        uses: streetsidesoftware/cspell-action@v2
+        with: # run job with sth
+          files: "*.tex"
+          check_dot_files: false
+          strict: true # all errors must be responded
+          incremental_file_only: true # check only changed files
